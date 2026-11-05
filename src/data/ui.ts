@@ -6,10 +6,11 @@ type F2 = (a: number, b: number) => string
 export interface UIStrings {
   tabs: string[]; meta: string; dashTitle: string; notice: string
   lessonsRead: string; quizAvg: string; lastExam: (passed: boolean) => string; noExam: string; toReview: string
-  nextLesson: string; cont: string; allRead: string
+  nextLesson: string; cont: string; allRead: string; domainDone: string; domainAllRead: string; upNext: string; lessonsLeft: F1; minutes: F1
   byWeight: string; hDomain: string; hWeight: string; hLessons: string; hBest: string; notDone: string; course: string; quiz: string
   plan4: string; examDate: string; daysLeft: F1; dayDone: string
   history: string; hDate: string; hQ: string; hOk: string; hScore: string; locale: string
+  themeL: string; light: string; dark: string
   toc: string; lessonN: F2; markNext: string; markQuiz: F1; read: string; nextDomain: string; domainQuiz: F1
   quizTitle: (d: number, name: string) => string; qn: (i: number, n: number, answered: number) => string
   exam: string; practice: string; chooseN: F1
@@ -33,9 +34,10 @@ fr:{tabs:["Tableau de bord","Cours","Examen blanc","Erreurs","Pièges","Fiche"],
  meta:"53 questions · 120 min · réussite 720 / 1000 · Pearson VUE", dashTitle:"Préparation à l'examen CCDV-F",
  notice:"Contenu vérifié le 4 novembre 2026 contre le guide officiel v1.0, la FAQ Partner Academy et la documentation Anthropic. Examen avant le 17 novembre : le blueprint v1.0 s'applique. À faire aujourd'hui : vérifier l'éligibilité (email d'entreprise d'une organisation partenaire ; 7 à 10 jours si le domaine est nouveau) et réserver Pearson VUE. Report ou annulation : au moins 48 h avant (FAQ ; le guide dit 24 h).",
  lessonsRead:"leçons lues", quizAvg:"moyenne des quiz de domaine", lastExam:p=>"dernier examen blanc · "+(p?"réussi":"échoué"), noExam:"aucun examen blanc", toReview:"questions à réviser",
- nextLesson:"Prochaine leçon", cont:"Continuer le cours", allRead:"Toutes les leçons sont lues. Passe aux examens blancs complets.",
+ nextLesson:"Prochaine leçon", cont:"Continuer le cours", allRead:"Toutes les leçons sont lues. Passe aux examens blancs complets.", domainDone:"du domaine complété", upNext:"À suivre", lessonsLeft:n=>n>1?n+" leçons restantes":n===1?"1 leçon restante":"Toutes les leçons sont lues", minutes:n=>n+" min", domainAllRead:"Toutes les leçons du domaine sont lues. Valide avec le quiz.",
  byWeight:"Domaines, par poids", hDomain:"Domaine", hWeight:"Poids", hLessons:"Leçons", hBest:"Meilleur quiz", notDone:"non fait", course:"Cours", quiz:"Quiz",
  plan4:"Sprint jusqu'à l'examen", examDate:"Date de mon examen", daysLeft:n=>n>1?"J-"+n+" (examen dans "+n+" jours)":n===1?"Examen demain":n===0?"Jour J":"Date passée", dayDone:"Fait", history:"Historique des examens blancs", hDate:"Date", hQ:"Questions", hOk:"Bonnes réponses", hScore:"Score estimé", locale:"fr-FR",
+ themeL:"Thème", light:"Clair", dark:"Sombre",
  toc:"Sommaire du cours", lessonN:(i,n)=>"leçon "+i+" / "+n, markNext:"Marquer comme lue et continuer", markQuiz:d=>"Marquer comme lue et passer au quiz D"+d, read:"lue", nextDomain:"Domaine suivant", domainQuiz:n=>"Quiz du domaine ("+n+" questions)",
  quizTitle:(d,name)=>"Quiz D"+d+" · "+name, qn:(i,n,a)=>"Question "+i+" / "+n+" · "+a+" répondue(s)", exam:"examen", practice:"entraînement", chooseN:n=>"Choisissez "+n+" réponses",
  correct:"Correct. ", incorrect:"Incorrect. ", prev:"Précédente", validate:"Valider", next:"Suivante", flag:"Marquer pour revoir", unflag:"Retirer le marquage",
@@ -55,9 +57,10 @@ en:{tabs:["Dashboard","Course","Mock exam","Mistakes","Traps","Cheat sheet"],
  meta:"53 questions · 120 min · pass 720 / 1000 · Pearson VUE", dashTitle:"CCDV-F exam preparation",
  notice:"Content checked on November 4, 2026 against the official guide v1.0, the Partner Academy FAQ and Anthropic's documentation. Exam before November 17: blueprint v1.0 applies. Do today: check eligibility (company email of a partner organization; 7 to 10 days if the domain is new) and book Pearson VUE. Reschedule or cancel: at least 48 h ahead (FAQ; the guide says 24 h).",
  lessonsRead:"lessons read", quizAvg:"domain quiz average", lastExam:p=>"last mock exam · "+(p?"passed":"failed"), noExam:"no mock exam yet", toReview:"questions to review",
- nextLesson:"Next lesson", cont:"Continue the course", allRead:"All lessons are read. Move on to full mock exams.",
+ nextLesson:"Next lesson", cont:"Continue the course", allRead:"All lessons are read. Move on to full mock exams.", domainDone:"of domain completed", upNext:"Up next", lessonsLeft:n=>n>1?n+" lessons left":n===1?"1 lesson left":"All lessons read", minutes:n=>n+" min", domainAllRead:"All lessons in this domain are read. Check yourself with the quiz.",
  byWeight:"Domains, by weight", hDomain:"Domain", hWeight:"Weight", hLessons:"Lessons", hBest:"Best quiz", notDone:"not done", course:"Course", quiz:"Quiz",
  plan4:"Sprint to exam day", examDate:"My exam date", daysLeft:n=>n>1?n+" days to go":n===1?"Exam tomorrow":n===0?"Exam day":"Date passed", dayDone:"Done", history:"Mock exam history", hDate:"Date", hQ:"Questions", hOk:"Correct answers", hScore:"Estimated score", locale:"en-GB",
+ themeL:"Theme", light:"Light", dark:"Dark",
  toc:"Course contents", lessonN:(i,n)=>"lesson "+i+" / "+n, markNext:"Mark as read and continue", markQuiz:d=>"Mark as read and take the D"+d+" quiz", read:"read", nextDomain:"Next domain", domainQuiz:n=>"Domain quiz ("+n+" questions)",
  quizTitle:(d,name)=>"D"+d+" quiz · "+name, qn:(i,n,a)=>"Question "+i+" / "+n+" · "+a+" answered", exam:"exam", practice:"practice", chooseN:n=>"Choose "+n+" answers",
  correct:"Correct. ", incorrect:"Incorrect. ", prev:"Previous", validate:"Check", next:"Next", flag:"Flag for review", unflag:"Remove flag",

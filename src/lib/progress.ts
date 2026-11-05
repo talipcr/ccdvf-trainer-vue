@@ -6,11 +6,13 @@ export interface Progress {
   missed: string[]
   exams: ExamRecord[]
   lang: Lang
+  /** null = suit le thème du système */
+  theme: 'light' | 'dark' | null
   examDate: string
   done: Record<number, boolean>
 }
 
-export const defaultProgress = (): Progress => ({ read: {}, quiz: {}, missed: [], exams: [], lang: 'fr', examDate: '2026-11-16', done: {} })
+export const defaultProgress = (): Progress => ({ read: {}, quiz: {}, missed: [], exams: [], lang: 'fr', theme: null, examDate: '2026-11-16', done: {} })
 
 const obj = (v: unknown) => (v && typeof v === 'object' && !Array.isArray(v) ? v : null)
 
@@ -27,6 +29,7 @@ export function parseProgress(raw: string | null): Progress {
     missed: Array.isArray(p.missed) ? p.missed.filter((x): x is string => typeof x === 'string') : d.missed,
     exams: Array.isArray(p.exams) ? (p.exams as ExamRecord[]) : d.exams,
     lang: p.lang === 'en' ? 'en' : 'fr',
+    theme: p.theme === 'light' || p.theme === 'dark' ? p.theme : null,
     examDate: typeof p.examDate === 'string' ? p.examDate : d.examDate,
   }
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { daysTo, isRight, pct, prep, sampleExam, scaledScore, shuffle } from './exam'
+import { daysTo, isRight, pct, prep, sampleExam, scaledScore, shuffle, sprintDay } from './exam'
 import { DOMAINS, QUESTIONS } from '../data/content.fr'
 
 describe('shuffle', () => {
@@ -72,5 +72,12 @@ describe('scores et dates', () => {
     expect(daysTo('2026-11-04', today)).toBe(0)
     expect(daysTo('2026-11-03', today)).toBe(-1)
     expect(daysTo('nimporte', today)).toBe(0)
+  })
+
+  it('sprintDay finit le sprint le jour de l examen', () => {
+    expect(sprintDay('2026-11-16', 12, 13)).toEqual(new Date(2026, 10, 16))
+    expect(sprintDay('2026-11-16', 0, 13)).toEqual(new Date(2026, 10, 4))
+    expect(sprintDay('2026-12-02', 0, 13)).toEqual(new Date(2026, 10, 20)) // passage de mois
+    expect(sprintDay('nimporte', 0, 13)).toBeNull()
   })
 })

@@ -56,3 +56,10 @@ export function daysTo(v: string, today: Date = new Date()): number {
   t0.setHours(0, 0, 0, 0)
   return Math.round((new Date(p[0], p[1] - 1, p[2]).getTime() - t0.getTime()) / 86400000)
 }
+
+/** Date du jour k d'un sprint de n jours qui se termine le jour de l'examen (AAAA-MM-JJ) ; null si invalide */
+export function sprintDay(examDate: string, k: number, n: number): Date | null {
+  const p = String(examDate || '').split('-').map(Number)
+  if (p.length !== 3 || p.some(Number.isNaN)) return null
+  return new Date(p[0], p[1] - 1, p[2] - (n - 1 - k))
+}

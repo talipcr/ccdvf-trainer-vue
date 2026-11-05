@@ -21,6 +21,14 @@ watch(state, v => {
 
 watch(() => state.lang, l => { document.documentElement.lang = l }, { immediate: true })
 
+/* ---------- thème : choix explicite, sinon celui du système ---------- */
+const darkMq = window.matchMedia('(prefers-color-scheme: dark)')
+export const theme = computed(() => state.theme ?? (darkMq.matches ? 'dark' : 'light'))
+watch(() => state.theme, th => {
+  if (th) document.documentElement.dataset.theme = th
+  else delete document.documentElement.dataset.theme
+}, { immediate: true })
+
 /* ---------- langue ---------- */
 export const t = computed(() => UI[state.lang])
 export const dom = (id: number): Domain => DOMAINS.find(d => d.id === id)!
